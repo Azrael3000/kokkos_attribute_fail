@@ -1,0 +1,11 @@
+cmake_minimum_required (VERSION 3.10)
+project (KokkosAttributeFail)
+set(Kokkos_DIR "$ENV{Kokkos_ROOT}" CACHE STRING "Kokkos root directory")
+find_package(Kokkos REQUIRED)
+
+add_executable(attribute_fail attribute_fail.cpp)
+add_library(lib SHARED lib.cpp)
+add_library(lib2 SHARED lib2.cpp)
+target_link_libraries(attribute_fail ${CMAKE_DL_LIBS} lib)
+target_link_libraries(lib Kokkos::kokkos lib2)
+target_link_libraries(lib2 Kokkos::kokkos)
